@@ -1,0 +1,3 @@
+# These are words which will reject the sender
+# when matched in an rDNS name along with an IP address.
+dynamic
