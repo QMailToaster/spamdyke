@@ -10,7 +10,7 @@ Source1:	spamdyke.conf
 Source2:	blacklist_keywords
 Source3:	whitelist_ip
 Source4:	sd-prune-graylist
-BuildRequres:	openssl-devel
+BuildRequires:	openssl-devel
 BuildRoot:      %{_topdir}/BUILDROOT/%{name}-%{version}-%{release}.%{_arch}
 
 %define debug_package %{nil}
