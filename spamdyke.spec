@@ -47,16 +47,16 @@ make
 #-------------------------------------------------------------------------------
 %install
 #-------------------------------------------------------------------------------
-rm -rf %{buildroot}
-mkdir -p %{buildroot}%{BASE_DIR} \
-         %{buildroot}%{BIN_DIR} \
-         %{buildroot}%{CONF_DIR} \
-         %{buildroot}%{VAR_DIR}/graylist \
-         %{buildroot}%{BIN_LINK} \
-         %{buildroot}%{_sysconfdir} \
-         %{buildroot}%{_localstatedir}
-ln -s  ..%{CONF_DIR}  %{buildroot}%{CONF_LINK}
-ln -s  ..%{VAR_DIR}   %{buildroot}%{VAR_LINK}
+%{__rm} -rf  %{buildroot}
+%{__mkdir_p} %{buildroot}%{BASE_DIR} \
+             %{buildroot}%{BIN_DIR} \
+             %{buildroot}%{CONF_DIR} \
+             %{buildroot}%{VAR_DIR}/graylist \
+             %{buildroot}%{BIN_LINK} \
+             %{buildroot}%{_sysconfdir} \
+             %{buildroot}%{_localstatedir}
+%{__ln_s}  ..%{CONF_DIR}  %{buildroot}%{CONF_LINK}
+%{__ln_s}  ..%{VAR_DIR}   %{buildroot}%{VAR_LINK}
 
 touch %{buildroot}%{CONF_DIR}/blacklist_ip \
       %{buildroot}%{CONF_DIR}/blacklist_rdns \
@@ -67,20 +67,15 @@ touch %{buildroot}%{CONF_DIR}/blacklist_ip \
       %{buildroot}%{CONF_DIR}/whitelist_recipients \
       %{buildroot}%{CONF_DIR}/whitelist_senders
 
-install spamdyke.conf         %{buildroot}%{CONF_DIR}/spamdyke.conf
-install blacklist_keywords    %{buildroot}%{CONF_DIR}/blacklist_keywords
-install whitelist_ip          %{buildroot}%{CONF_DIR}/whitelist_ip
+%{__install} -p %{_sourcedir}/spamdyke.conf       %{buildroot}%{CONF_DIR}/.
+%{__install} -p %{_sourcedir}/blacklist_keywords  %{buildroot}%{CONF_DIR}/.
+%{__install} -p %{_sourcedir}/whitelist_ip        %{buildroot}%{CONF_DIR}/.
 
-install -p sd-prune-graylist  %{buildroot}%{BIN_DIR}
-install -p %{name}/%{name}    %{buildroot}%{BIN_DIR}
-ln -s ../..%{BIN_DIR}/sd-prune-graylist %{buildroot}%{BIN_LINK}/.
-ln -s ../..%{BIN_DIR}/%{name}           %{buildroot}%{BIN_LINK}/.
+%{__install} -p %{_sourcedir}/sd-prune-graylist   %{buildroot}%{BIN_DIR}/.
+%{__install} -p %{name}/%{name}                   %{buildroot}%{BIN_DIR}/.
 
-#-------------------------------------------------------------------------------
-%clean
-#-------------------------------------------------------------------------------
-rm -rf $RPM_BUILD_DIR/%{name}-%{version}
-rm -rf %{buildroot}
+%{__ln_s}  ../..%{BIN_DIR}/sd-prune-graylist      %{buildroot}%{BIN_LINK}/.
+%{__ln_s}  ../..%{BIN_DIR}/%{name}                %{buildroot}%{BIN_LINK}/.
 
 #-------------------------------------------------------------------------------
 %files
@@ -93,12 +88,19 @@ rm -rf %{buildroot}
 %dir %{VAR_DIR}
 %dir %{VAR_DIR}/graylist
 
-%{BIN_DIR}/*
-%config(noreplace) %{CONF_DIR}/*
+%attr(0755,root,root) %{BIN_DIR}/*
+%config(noreplace)    %{CONF_DIR}/*
+
 %{BIN_LINK}/%{name}
 %{BIN_LINK}/sd-prune-graylist
 %{CONF_LINK}
 %{VAR_LINK}
+
+#-------------------------------------------------------------------------------
+%clean
+#-------------------------------------------------------------------------------
+rm -rf $RPM_BUILD_DIR/%{name}-%{version}
+rm -rf %{buildroot}
 
 #-------------------------------------------------------------------------------
 %changelog
