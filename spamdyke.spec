@@ -67,15 +67,15 @@ touch %{buildroot}%{CONF_DIR}/blacklist_ip \
       %{buildroot}%{CONF_DIR}/whitelist_recipients \
       %{buildroot}%{CONF_DIR}/whitelist_senders
 
-%{__install} -p %{_sourcedir}/spamdyke.conf       %{buildroot}%{CONF_DIR}/.
-%{__install} -p %{_sourcedir}/blacklist_keywords  %{buildroot}%{CONF_DIR}/.
-%{__install} -p %{_sourcedir}/whitelist_ip        %{buildroot}%{CONF_DIR}/.
+%{__install} -p %{SOURCE1}        %{buildroot}%{CONF_DIR}/.
+%{__install} -p %{SOURCE2}        %{buildroot}%{CONF_DIR}/.
+%{__install} -p %{SOURCE3}        %{buildroot}%{CONF_DIR}/.
 
-%{__install} -p %{_sourcedir}/sd-prune-graylist   %{buildroot}%{BIN_DIR}/.
-%{__install} -p %{name}/%{name}                   %{buildroot}%{BIN_DIR}/.
+%{__install} -p %{SOURCE4}        %{buildroot}%{BIN_DIR}/.
+%{__install} -p %{name}/%{name}   %{buildroot}%{BIN_DIR}/.
 
-%{__ln_s}  ../..%{BIN_DIR}/sd-prune-graylist      %{buildroot}%{BIN_LINK}/.
-%{__ln_s}  ../..%{BIN_DIR}/%{name}                %{buildroot}%{BIN_LINK}/.
+%{__ln_s}  ../..%{BIN_DIR}/sd-prune-graylist  %{buildroot}%{BIN_LINK}/.
+%{__ln_s}  ../..%{BIN_DIR}/%{name}            %{buildroot}%{BIN_LINK}/.
 
 #-------------------------------------------------------------------------------
 %files
@@ -99,7 +99,7 @@ touch %{buildroot}%{CONF_DIR}/blacklist_ip \
 #-------------------------------------------------------------------------------
 %clean
 #-------------------------------------------------------------------------------
-rm -rf $RPM_BUILD_DIR/%{name}-%{version}
+rm -rf %{_builddir}/%{name}-%{version}
 rm -rf %{buildroot}
 
 #-------------------------------------------------------------------------------
