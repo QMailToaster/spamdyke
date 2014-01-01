@@ -1,17 +1,19 @@
-Name:		spamdyke
-Summary:	connection-time spam filter for qmail
-Version:	4.3.1
-Release:	0%{?dist}
-License:	GPL (version 2 only)
-Group:		System Environment/Libraries
-URL:		http://www.spamdyke.org/
-Source0:	http://www.spamdyke.org/releases/%{name}-%{version}.tgz
-Source1:	spamdyke.conf
-Source2:	blacklist_keywords
-Source3:	whitelist_ip
-Source4:	sd-prune-graylist
-BuildRequires:	openssl-devel
-BuildRoot:      %{_topdir}/BUILDROOT/%{name}-%{version}-%{release}.%{_arch}
+Name:      spamdyke
+Summary:   connection-time spam filter for qmail
+Version:   4.3.1
+Release:   0%{?dist}
+License:   GPL (version 2 only)
+Group:     System Environment/Libraries
+Vendor:    QmailToaster
+Packager:  Eric Shubert <qmt-build@datamatters.us>
+URL:       http://www.spamdyke.org/
+Source0:   http://www.spamdyke.org/releases/%{name}-%{version}.tgz
+Source1:   spamdyke.conf
+Source2:   blacklist_keywords
+Source3:   whitelist_ip
+Source4:   sd-prune-graylist
+BuildRequires: openssl-devel
+BuildRoot: %{_topdir}/BUILDROOT/%{name}-%{version}-%{release}.%{_arch}
 
 %define debug_package %{nil}
 %define BASE_DIR      /opt/%{name}
