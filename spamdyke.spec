@@ -1,7 +1,7 @@
 Name:      spamdyke
 Summary:   connection-time spam filter for qmail
 Version:   4.3.1
-Release:   0%{?dist}
+Release:   1%{?dist}
 License:   GPL (version 2 only)
 Group:     System Environment/Libraries
 Vendor:    QmailToaster
@@ -107,6 +107,8 @@ rm -rf %{buildroot}
 #-------------------------------------------------------------------------------
 %changelog
 #-------------------------------------------------------------------------------
+* Wed Jul  9 2014 Eric Shubert <eric@datamatters.us> 4.3.1-1.qt
+- Changed logging to use syslog
 * Sat Nov 23 2013 Eric Shubert <eric@datamatters.us> 4.3.1-0.qt
 - Added sd-prune-graylist script to package
 * Mon Oct 21 2013 Eric Shubert <eric@datamatters.us> 4.3.1-0
